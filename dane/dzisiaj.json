@@ -1,21 +1,55 @@
-name: Synchronizacja Danych
-on:
-  schedule:
-    - cron: '15 5 * * *'
-  workflow_dispatch:
-
-jobs:
-  sync:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - uses: actions/checkout@v4
-      - run: |
-          python -m pip install requests
-          python coach.py
-          git config --global user.name "Bot"
-          git config --global user.email "bot@bot.com"
-          git add dane/dzisiaj.json
-          git commit -m "Aktualizacja danych" || exit 0
-          git push
+{
+    "id": "2026-05-29",
+    "ctl": 19.917591,
+    "atl": 30.265621,
+    "rampRate": 2.915741,
+    "ctlLoad": 0.0,
+    "atlLoad": 14.0,
+    "sportInfo": [
+        {
+            "type": "Ride",
+            "eftp": 155.0,
+            "wPrime": 11985.0,
+            "pMax": 671.92236
+        }
+    ],
+    "updated": "2026-05-29T14:54:51.258+00:00",
+    "weight": null,
+    "restingHR": 51,
+    "hrv": 50.0,
+    "hrvSDNN": null,
+    "menstrualPhase": null,
+    "menstrualPhasePredicted": null,
+    "kcalConsumed": null,
+    "sleepSecs": 24060,
+    "sleepScore": 82.0,
+    "sleepQuality": 2,
+    "avgSleepingHR": null,
+    "soreness": null,
+    "fatigue": null,
+    "stress": null,
+    "mood": null,
+    "motivation": null,
+    "injury": null,
+    "spO2": null,
+    "systolic": null,
+    "diastolic": null,
+    "hydration": null,
+    "hydrationVolume": null,
+    "readiness": null,
+    "baevskySI": null,
+    "bloodGlucose": null,
+    "lactate": null,
+    "bodyFat": null,
+    "abdomen": null,
+    "vo2max": null,
+    "comments": null,
+    "steps": 6242,
+    "respiration": null,
+    "carbohydrates": null,
+    "protein": null,
+    "fatTotal": null,
+    "locked": null,
+    "tempWeight": true,
+    "tempRestingHR": false
+}
