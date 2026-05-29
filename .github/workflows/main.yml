@@ -11,11 +11,18 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v4
-      - run: |
-          python -m pip install requests
+      - name: Instalacja zależności
+        run: |
+          python -m pip install requests google-genai
+      - name: Uruchomienie skryptu
+        env:
+          INTERVALS_ATHLETE_ID: ${{ secrets.INTERVALS_ATHLETE_ID }}
+          INTERVALS_API_KEY: ${{ secrets.INTERVALS_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
           python coach.py
           git config --global user.name "Bot"
           git config --global user.email "bot@bot.com"
           git add dane/dzisiaj.json
-          git commit -m "Update" || exit 0
+          git commit -m "Aktualizacja danych" || exit 0
           git push
