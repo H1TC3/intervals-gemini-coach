@@ -63,4 +63,13 @@ def main():
     # Zapis wyniku do pliku tekstowego
     dzis = datetime.now().strftime("%Y-%m-%d")
     nazwa_pliku = f"raporty/raport_{dzis}.txt"
-    os.makedirs("
+    os.makedirs("raporty", exist_ok=True)
+    
+    with open(nazwa_pliku, "w", encoding="utf-8") as f:
+        f.write(f"=== RAPORT TRENINGOWY AI - {dzis} ===\n\n")
+        f.write(response.text)
+        
+    print("Raport wygenerowany pomyślnie i zapisany w pliku!")
+
+if __name__ == "__main__":
+    main()
