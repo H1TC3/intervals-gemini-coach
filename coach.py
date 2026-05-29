@@ -1,21 +1,55 @@
 import os
-from datetime import datetime
-import json
+import requests
+import time
 from google import genai
 from google.genai import types
-import requests
+from datetime import datetime, timedelta
+import json
 
-# ... (kod pobierania danych z Intervals.icu zostaje bez zmian) ...
+# Konfiguracja
+INTERVALS_ID = os.environ.get('INTERVALS_ATHLETE_ID')
+INTERVALS_API_KEY = os.environ.get('INTERVALS_API_KEY')
+GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY')
+GH_TOKEN = os.environ.get('GH_TOKEN')
+REPO = os.environ.get('GITHUB_REPOSITORY')
+
+client = genai.Client(api_key=GEMINI_API_KEY)
+
+def get_wellness_data():
+    url = f"https://intervals.icu/api/v1/athlete/{INTERVALS_ID}/wellness?oldest={(datetime.now()-timedelta(days=3)).strftime('%Y-%m-%d')}"
+    return requests.get(url, auth=('API_KEY', INTERVALS_API_KEY)).json()
+
+def create_issue(title, body):
+    url = f"https://api.github.com/repos/{REPO}/issues"
+    headers = {"Authorization": f"token {GH_TOKEN}", "Accept": "application/vnd.github.v3+json"}
+    payload = {"title": title, "body": body}
+    requests.post(url, json=payload, headers=headers)
 
 def main():
-    # Pobieranie i analiza AI (kod zostaje ten sam co poprzednio)
-    # ...
+    wellness = get_wellness_data()
+    latest = wellness[-1] if wellness else {}
     
-    # ZAPIS DO PLIKU
-    dzis = datetime.now().strftime("%Y-%m-%d")
-    raport_sciezka = f"raport_{dzis}.txt"
-    with open(raport_sciezka, "w", encoding="utf-8") as f:
-        f.write(response.text)
+    # Model stabilny
+    model_name = "gemini-2.0-flash-lite"
+    system_instruction = "Jesteś trenerem. Podopieczny: 46 lat, 83 kg, FTP 180W. Wypisz tabelę: HRV, Tętno spoczynkowe, Czas snu, TSS. Napisz żołnierską analizę i zalecenie na dziś."
+
+    # Mechanizm ponawiania
+    for attempt in range(5):
+        try:
+            response = client.models.generate_content(
+                model=model_name,
+                contents=f"Dane: {json.dumps(latest)}. Co robimy?",
+                config=types.GenerateContentConfig(system_instruction=system_instruction)
+            )
+            # Zapisujemy przez Issues
+            create_issue(f"Raport {datetime.now().strftime('%Y-%m-%d')}", response.text)
+            print("Raport utworzony w Issues!")
+            return 
+        except Exception as e:
+            print(f"Błąd (próba {attempt+1}/5): {e}")
+            time.sleep(15) 
+            
+    print("Nie udało się utworzyć raportu po 5 próbach.")
 
 if __name__ == "__main__":
     main()
