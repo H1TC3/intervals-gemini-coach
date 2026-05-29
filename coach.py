@@ -1,6 +1,7 @@
 import os
 import requests
-import google.generativeai as genai
+from google import genai
+from google.genai import types
 from datetime import datetime, timedelta
 import json
 
@@ -12,8 +13,8 @@ GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY')
 intervals_auth = ('API_KEY', INTERVALS_API_KEY)
 base_url = f"https://intervals.icu/api/v1/athlete/{INTERVALS_ID}"
 
-genai.configure(api_key=GEMINI_API_KEY)
-model = genai.GenerativeModel('gemini-2.5-pro')
+# Nowa, prawidłowa inicjalizacja klienta Gemini
+client = genai.Client(api_key=GEMINI_API_KEY)
 
 def get_wellness_data(days=3):
     end_date = datetime.now().strftime("%Y-%m-%d")
@@ -41,21 +42,25 @@ def main():
 
     system_instruction = (
         "Jesteś zaawansowanym trenerem kolarstwa i sportów siłowych. Twój podopieczny ma 46 lat, "
-        "waży 83 kg, FTP: 180W. Trenuje kolarstwo i siłę. Przeanalizuj dzisiejsze tętno spoczynkowe, HRV oraz sen. "
+        "waży 83 kg, obecne FTP wynosi 180W. Posiada trenażer oraz hantle i ławeczkę w domu. "
+        "Trenuje w 6-dniowym splicie: kolarstwo (wtorki, czwartki, weekendy) oraz trening siłowy ukierunkowany na "
+        "rekompozycję (poniedziałki, środy, piątki). Przeanalizuj dzisiejsze tętno spoczynkowe, HRV oraz sen. "
         "Napisz krótką, żołnierską analizę poranną stanu regeneracji i jednoznaczne zalecenie na dzisiejszy dzień."
     )
 
     user_prompt = f"Dane Wellness (3 dni):\n{wellness_summary}\n\nOstatnie aktywności:\n{activities_summary}\n\nCo robimy dzisiaj?"
 
-    response = model.generate_content(
+    # Nowe, poprawne wywołanie modelu
+    response = client.models.generate_content(
+        model='gemini-2.5-pro',
         contents=user_prompt,
-        generation_config=genai.types.GenerationConfig(
+        config=types.GenerateContentConfig(
             system_instruction=system_instruction,
             temperature=0.3,
         )
     )
     
-    # Zapis wyniku do pliku tekstowego (stworzy historię raportów)
+    # Zapis wyniku do pliku tekstowego
     dzis = datetime.now().strftime("%Y-%m-%d")
     nazwa_pliku = f"raporty/raport_{dzis}.txt"
     os.makedirs("raporty", exist_ok=True)
