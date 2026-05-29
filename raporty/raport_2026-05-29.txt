@@ -1,9 +1,40 @@
-=== RAPORT TRENINGOWY AI - 2026-05-29 ===
+Cześć! Przyjrzyjmy się Twoim danym.
 
-**Żołnierska Analiza Poranna Stanu Regeneracji (2026-05-29):**
+### Dane Wellness (ostatnie 4 dni)
 
-Regeneracja wzorowa. Tętno spoczynkowe (51 bpm) jest najniższe od 4 dni, a zmienność rytmu serca (HRV 50) znacząco wzrosła, wskazując na pełną aktywację układu przywspółczulnego. Sen, mimo że nie najdłuższy, charakteryzował się najwyższym wynikiem i jakością w analizowanym okresie. Organizm jest w pełni gotowy do wysiłku.
+| Data       | HRV | Tętno spoczynkowe | Czas snu | TSS   |
+| :--------- | :-- | :---------------- | :------- | :---- |
+| 2026-05-29 | 50  | 51                | 6h 41m   | N/A   |
+| 2026-05-28 | 29  | 57                | 7h 16m   | N/A   |
+| 2026-05-27 | 42  | 53                | 6h 06m   | N/A   |
+| 2026-05-26 | 31  | 57                | 6h 29m   | N/A   |
 
-**Jednoznaczne Zalecenie na Dzisiejszy Dzień:**
+*Uwaga: Brak danych o TSS w dostarczonych aktywnościach, stąd "N/A".*
 
-Trening siłowy na dziś już wykonany. Dziś skup się na aktywnym odpoczynku i przygotowaniu do weekendowych jazd. Bez dodatkowych, intensywnych obciążeń.
+---
+
+### Żołnierska analiza:
+
+Podopieczny, ostatnie dni to rollercoaster.
+
+1.  **Wtorek (26.05) i Środa (27.05):** Organizm był pod obciążeniem. Niskie HRV (31, potem 42), podwyższone tętno spoczynkowe (57, potem 53), a w środę dodatkowo krótki sen (6h 06m). Trening kolarski we wtorek i siłowy w środę weszły, ale widać, że regeneracja nie była idealna.
+2.  **Czwartek (28.05):** To był kryzys. HRV spadło do dna (29!), tętno spoczynkowe poszło w górę (57). Coś się działo, bo nie było treningu kolarskiego, który był w planie. Brak treningu przy tak słabych parametrach to dobra decyzja, jeśli czułeś się źle, ale musimy wiedzieć, co było przyczyną tego spadku. Czy to stres, choroba, czy po prostu kumulacja zmęczenia?
+3.  **Piątek (29.05):** Za to rewelacyjny powrót! HRV wystrzeliło do 50, tętno spoczynkowe spadło do 51. Organizm odzyskał siły po czwartkowym dołku i dobrej dawce snu (7h 16m w nocy ze środy na czwartek, 6h 41m z czwartku na piątek). Trening siłowy w piątek wszedł na bardzo dobrych parametrach regeneracyjnych.
+
+Brak danych o TSS utrudnia precyzyjną ocenę obciążenia, ale widać, że organizm reaguje na stres i regenerację.
+
+---
+
+### Zalecenie na dziś (Sobota, 30.05):
+
+Dziś jest sobota, czyli dzień kolarski według Twojego planu.
+
+**Wczorajsze parametry (HRV 50, tętno 51) są rewelacyjne i świadczą o pełnej gotowości do treningu.** Organizm świetnie się zregenerował po czwartkowym spadku.
+
+**Możesz śmiało zrealizować zaplanowany trening kolarski.** Skoro regeneracja jest na topie, to jest szansa na dobrą jakość.
+
+*   **Cel:** Solidny trening kolarski. Jeśli w planie masz dłuższą jazdę w strefie tlenowej (Z2/Z3) lub interwały progowe, to jest dobry dzień, aby je wykonać. Unikaj jednak maksymalnych sprintów czy bardzo długich interwałów VO2max, chyba że to byłoby absolutnie kluczowe dla Twojego mikrocyklu.
+*   **Pamiętaj:** Rozgrzewka to podstawa. Słuchaj ciała – jeśli nogi podają, to wykorzystaj ten dzień. Upewnij się, że wczorajszy trening siłowy nie zostawił Cię z nadmiernymi zakwasami, które mogłyby wpłynąć na technikę pedałowania.
+*   **Po treningu:** Aktywna regeneracja, solidne nawodnienie, uzupełnienie białka i węglowodanów.
+
+**Koniecznie zanotuj, co działo się w czwartek (28.05) – dlaczego nie było treningu i co wpłynęło na tak niskie HRV.** To kluczowa informacja, aby zapobiec podobnym spadkom w przyszłości.
