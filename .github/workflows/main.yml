@@ -2,16 +2,15 @@ name: Codzienny Trener AI Intervals.icu
 
 on:
   schedule:
-    # 05:00 UTC to 07:00 rano czasu letniego w Polsce (CEST)
     - cron: '0 5 * * *'
-  workflow_dispatch: # Umożliwia ręczne uruchomienie przyciskiem
+  workflow_dispatch: 
 
 jobs:
   run-coach:
     runs-on: ubuntu-latest
     permissions:
-      contents: write # Pozwala skryptowi zapisywać pliki
-      issues: write   # Pozwala skryptowi tworzyć Issues
+      contents: write 
+      issues: write   
 
     steps:
     - name: Pobranie kodu repozytorium
