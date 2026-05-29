@@ -13,7 +13,7 @@ GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY')
 intervals_auth = ('API_KEY', INTERVALS_API_KEY)
 base_url = f"https://intervals.icu/api/v1/athlete/{INTERVALS_ID}"
 
-# Nowa, prawidłowa inicjalizacja klienta Gemini
+# Inicjalizacja klienta Gemini
 client = genai.Client(api_key=GEMINI_API_KEY)
 
 def get_wellness_data(days=3):
@@ -42,15 +42,14 @@ def main():
 
     system_instruction = (
         "Jesteś zaawansowanym trenerem kolarstwa i sportów siłowych. Twój podopieczny ma 46 lat, "
-        "waży 83 kg, obecne FTP wynosi 180W. Posiada trenażer oraz hantle i ławeczkę w domu. "
-        "Trenuje w 6-dniowym splicie: kolarstwo (wtorki, czwartki, weekendy) oraz trening siłowy ukierunkowany na "
-        "rekompozycję (poniedziałki, środy, piątki). Przeanalizuj dzisiejsze tętno spoczynkowe, HRV oraz sen. "
-        "Napisz krótką, żołnierską analizę poranną stanu regeneracji i jednoznaczne zalecenie na dzisiejszy dzień."
+        "waży 83 kg, FTP 180W. Posiada trenażer, hantle i ławeczkę. "
+        "Trenuje w 6-dniowym splicie. Na początku raportu wypisz w tabeli: Data, HRV, Tętno spoczynkowe, Czas snu, TSS z wczoraj. "
+        "Potem napisz żołnierską analizę regeneracji i jednoznaczne zalecenie treningowe na dzisiaj."
     )
 
     user_prompt = f"Dane Wellness (3 dni):\n{wellness_summary}\n\nOstatnie aktywności:\n{activities_summary}\n\nCo robimy dzisiaj?"
 
-    # Zmieniony model na gemini-2.5-flash, który rozwiązuje problem z limitami
+    # Generowanie treści
     response = client.models.generate_content(
         model='gemini-2.5-flash',
         contents=user_prompt,
@@ -60,16 +59,24 @@ def main():
         )
     )
     
-    # Zapis wyniku do pliku tekstowego
     dzis = datetime.now().strftime("%Y-%m-%d")
-    nazwa_pliku = f"raporty/raport_{dzis}.txt"
-    os.makedirs("raporty", exist_ok=True)
     
-    with open(nazwa_pliku, "w", encoding="utf-8") as f:
-        f.write(f"=== RAPORT TRENINGOWY AI - {dzis} ===\n\n")
+    # 1. Zapis raportu do folderu raporty (do czytania przez Ciebie)
+    os.makedirs("raporty", exist_ok=True)
+    with open(f"raporty/raport_{dzis}.txt", "w", encoding="utf-8") as f:
         f.write(response.text)
         
-    print("Raport wygenerowany pomyślnie i zapisany w pliku!")
+    # 2. Zapis surowych danych do folderu dane (do czytania przeze mnie)
+    dane_do_zapisu = {
+        "data": dzis,
+        "wellness": wellness,
+        "analiza_ai": response.text
+    }
+    os.makedirs("dane", exist_ok=True)
+    with open(f"dane/dane_{dzis}.json", "w", encoding="utf-8") as f:
+        json.dump(dane_do_zapisu, f, ensure_ascii=False, indent=4)
+        
+    print("Raport i dane zapisane pomyślnie!")
 
 if __name__ == "__main__":
     main()
