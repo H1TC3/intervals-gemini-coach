@@ -1,5 +1,6 @@
 import os
 import requests
+import time
 from google import genai
 from google.genai import types
 from datetime import datetime, timedelta
@@ -13,7 +14,6 @@ GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY')
 intervals_auth = ('API_KEY', INTERVALS_API_KEY)
 base_url = f"https://intervals.icu/api/v1/athlete/{INTERVALS_ID}"
 
-# Inicjalizacja klienta Gemini
 client = genai.Client(api_key=GEMINI_API_KEY)
 
 def get_wellness_data(days=3):
@@ -41,42 +41,44 @@ def main():
     ], indent=2)
 
     system_instruction = (
-        "Jesteś zaawansowanym trenerem kolarstwa i sportów siłowych. Twój podopieczny ma 46 lat, "
-        "waży 83 kg, FTP 180W. Posiada trenażer, hantle i ławeczkę. "
-        "Trenuje w 6-dniowym splicie. Na początku raportu wypisz w tabeli: Data, HRV, Tętno spoczynkowe, Czas snu, TSS z wczoraj. "
-        "Potem napisz żołnierską analizę regeneracji i jednoznaczne zalecenie treningowe na dzisiaj."
+        "Jesteś trenerem. Podopieczny: 46 lat, 83 kg, FTP 180W. Split: kolarstwo (wt, czw, wek), siła (pon, śr, pt). "
+        "Wypisz w tabeli: Data, HRV, Tętno spoczynkowe, Czas snu, TSS. Potem napisz żołnierską analizę i zalecenie na dziś."
     )
 
     user_prompt = f"Dane Wellness (3 dni):\n{wellness_summary}\n\nOstatnie aktywności:\n{activities_summary}\n\nCo robimy dzisiaj?"
 
-    # Generowanie treści
-    response = client.models.generate_content(
-        model='gemini-2.5-flash',
-        contents=user_prompt,
-        config=types.GenerateContentConfig(
-            system_instruction=system_instruction,
-            temperature=0.3,
-        )
-    )
-    
+    # Dodane ponawianie w razie błędu 503
+    max_retries = 3
+    for attempt in range(max_retries):
+        try:
+            response = client.models.generate_content(
+                model='gemini-2.5-flash',
+                contents=user_prompt,
+                config=types.GenerateContentConfig(
+                    system_instruction=system_instruction,
+                    temperature=0.3,
+                )
+            )
+            break # Jeśli się uda, wychodzimy z pętli
+        except Exception as e:
+            if attempt < max_retries - 1:
+                print(f"Serwer zajęty (błąd 503), ponawiam za 10s... (próba {attempt+1})")
+                time.sleep(10)
+            else:
+                raise e # Jeśli po 3 próbach dalej błąd, wyłączamy skrypt
+
     dzis = datetime.now().strftime("%Y-%m-%d")
     
-    # 1. Zapis raportu do folderu raporty (do czytania przez Ciebie)
     os.makedirs("raporty", exist_ok=True)
     with open(f"raporty/raport_{dzis}.txt", "w", encoding="utf-8") as f:
         f.write(response.text)
         
-    # 2. Zapis surowych danych do folderu dane (do czytania przeze mnie)
-    dane_do_zapisu = {
-        "data": dzis,
-        "wellness": wellness,
-        "analiza_ai": response.text
-    }
+    dane_do_zapisu = {"data": dzis, "wellness": wellness, "analiza_ai": response.text}
     os.makedirs("dane", exist_ok=True)
     with open(f"dane/dane_{dzis}.json", "w", encoding="utf-8") as f:
         json.dump(dane_do_zapisu, f, ensure_ascii=False, indent=4)
         
-    print("Raport i dane zapisane pomyślnie!")
+    print("Sukces!")
 
 if __name__ == "__main__":
     main()
