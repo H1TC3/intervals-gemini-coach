@@ -50,9 +50,9 @@ def main():
 
     user_prompt = f"Dane Wellness (3 dni):\n{wellness_summary}\n\nOstatnie aktywności:\n{activities_summary}\n\nCo robimy dzisiaj?"
 
-    # Nowe, poprawne wywołanie modelu
+    # Zmieniony model na gemini-2.5-flash, który rozwiązuje problem z limitami
     response = client.models.generate_content(
-        model='gemini-2.5-pro',
+        model='gemini-2.5-flash',
         contents=user_prompt,
         config=types.GenerateContentConfig(
             system_instruction=system_instruction,
@@ -63,13 +63,4 @@ def main():
     # Zapis wyniku do pliku tekstowego
     dzis = datetime.now().strftime("%Y-%m-%d")
     nazwa_pliku = f"raporty/raport_{dzis}.txt"
-    os.makedirs("raporty", exist_ok=True)
-    
-    with open(nazwa_pliku, "w", encoding="utf-8") as f:
-        f.write(f"=== RAPORT TRENINGOWY AI - {dzis} ===\n\n")
-        f.write(response.text)
-        
-    print("Raport wygenerowany pomyślnie i zapisany w pliku!")
-
-if __name__ == "__main__":
-    main()
+    os.makedirs("
