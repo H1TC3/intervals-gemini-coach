@@ -1,10 +1,10 @@
 {
-    "id": "2026-05-29",
-    "ctl": 19.917591,
-    "atl": 30.265621,
-    "rampRate": 2.915741,
-    "ctlLoad": 0.0,
-    "atlLoad": 14.0,
+    "id": "2026-05-30",
+    "ctl": 28.366194,
+    "atl": 76.68987,
+    "rampRate": 10.023273,
+    "ctlLoad": 379.0,
+    "atlLoad": 379.0,
     "sportInfo": [
         {
             "type": "Ride",
@@ -13,16 +13,16 @@
             "pMax": 671.92236
         }
     ],
-    "updated": "2026-05-29T14:54:51.258+00:00",
+    "updated": "2026-05-30T09:24:12.891+00:00",
     "weight": null,
-    "restingHR": 51,
-    "hrv": 50.0,
+    "restingHR": 53,
+    "hrv": 44.0,
     "hrvSDNN": null,
     "menstrualPhase": null,
     "menstrualPhasePredicted": null,
     "kcalConsumed": null,
-    "sleepSecs": 24060,
-    "sleepScore": 82.0,
+    "sleepSecs": 25020,
+    "sleepScore": 86.0,
     "sleepQuality": 2,
     "avgSleepingHR": null,
     "soreness": null,
@@ -44,12 +44,12 @@
     "abdomen": null,
     "vo2max": null,
     "comments": null,
-    "steps": 6242,
+    "steps": 4586,
     "respiration": null,
     "carbohydrates": null,
     "protein": null,
     "fatTotal": null,
     "locked": null,
-    "tempWeight": true,
+    "tempWeight": false,
     "tempRestingHR": false
 }
