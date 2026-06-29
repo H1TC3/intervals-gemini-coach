@@ -1,21 +1,21 @@
 {
-    "id": "2026-06-28",
-    "ctl": 17.266777,
-    "atl": 9.243879,
-    "rampRate": -1.2561474,
+    "id": "2026-06-29",
+    "ctl": 16.86052,
+    "atl": 8.013314,
+    "rampRate": -1.2265911,
     "ctlLoad": 0.0,
     "atlLoad": 0.0,
     "sportInfo": [
         {
             "type": "Ride",
-            "eftp": 153.67636,
-            "wPrime": 12106.937,
-            "pMax": 661.25183
+            "eftp": 153.52269,
+            "wPrime": 12094.83,
+            "pMax": 660.5906
         }
     ],
-    "updated": "2026-06-28T05:50:20.603+00:00",
+    "updated": "2026-06-23T18:42:55.554+00:00",
     "weight": null,
-    "restingHR": 56,
+    "restingHR": null,
     "hrv": null,
     "hrvSDNN": null,
     "menstrualPhase": null,
@@ -44,7 +44,7 @@
     "abdomen": null,
     "vo2max": null,
     "comments": null,
-    "steps": 9226,
+    "steps": null,
     "respiration": null,
     "carbohydrates": null,
     "protein": null,
