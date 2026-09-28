@@ -1,10 +1,10 @@
 {
-    "id": "2026-09-27",
-    "ctl": 4.928348,
-    "atl": 9.472959,
-    "rampRate": 1.0796671,
-    "ctlLoad": 71.0,
-    "atlLoad": 71.0,
+    "id": "2026-09-28",
+    "ctl": 4.812392,
+    "atl": 8.211899,
+    "rampRate": 1.0542643,
+    "ctlLoad": 0.0,
+    "atlLoad": 0.0,
     "sportInfo": [
         {
             "type": "Ride",
