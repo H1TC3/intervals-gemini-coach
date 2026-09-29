@@ -1,19 +1,19 @@
 {
-    "id": "2026-09-28",
-    "ctl": 4.812392,
-    "atl": 8.211899,
-    "rampRate": 1.0542643,
-    "ctlLoad": 0.0,
-    "atlLoad": 0.0,
+    "id": "2026-09-29",
+    "ctl": 4.259226,
+    "atl": 6.5389814,
+    "rampRate": 0.5895202,
+    "ctlLoad": 49.0,
+    "atlLoad": 49.0,
     "sportInfo": [
         {
             "type": "Ride",
-            "eftp": 141.43051,
-            "wPrime": 11142.181,
-            "pMax": 608.55914
+            "eftp": 141.1478,
+            "wPrime": 11119.908,
+            "pMax": 607.3426
         }
     ],
-    "updated": "2026-09-23T01:17:56.372+00:00",
+    "updated": "2026-09-29T00:12:22.242+00:00",
     "weight": null,
     "restingHR": null,
     "hrv": null,
