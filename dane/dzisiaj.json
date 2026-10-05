@@ -1,10 +1,10 @@
 {
-    "id": "2026-10-04",
-    "ctl": 4.4282107,
-    "atl": 9.459501,
-    "rampRate": 1.1703727,
-    "ctlLoad": 71.0,
-    "atlLoad": 71.0,
+    "id": "2026-10-05",
+    "ctl": 4.3240223,
+    "atl": 8.2002325,
+    "rampRate": 1.1428356,
+    "ctlLoad": 0.0,
+    "atlLoad": 0.0,
     "sportInfo": [
         {
             "type": "Ride",
@@ -45,6 +45,7 @@
     "vo2max": null,
     "comments": null,
     "steps": null,
+    "floorsClimbed": null,
     "respiration": null,
     "carbohydrates": null,
     "protein": null,
